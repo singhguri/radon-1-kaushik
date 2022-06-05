@@ -1,73 +1,105 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/students/:name', function(req, res) {
-    let studentName = req.params.name
-    console.log(studentName)
-    res.send(studentName)
-})
+let players = [
+  {
+    name: "manish",
+    dob: "1/1/1995",
+    gender: "male",
+    city: "jalandhar",
+    sports: ["swimming"],
+  },
+  {
+    name: "gopal",
+    dob: "1/09/1995",
+    gender: "male",
+    city: "delhi",
+    sports: ["soccer"],
+  },
+  {
+    name: "lokesh",
+    dob: "1/1/1990",
+    gender: "male",
+    city: "mumbai",
+    sports: ["soccer"],
+  },
+];
 
-router.get("/random" , function(req, res) {
-    res.send("hi there")
-})
+router.get("/students/:name", function (req, res) {
+  let studentName = req.params.name;
+  console.log(studentName);
+  res.send(studentName);
+});
 
+router.get("/random", function (req, res) {
+  res.send("hi there");
+});
 
-router.get("/test-api" , function(req, res) {
-    res.send("hi FunctionUp")
-})
+router.get("/test-api", function (req, res) {
+  res.send("hi FunctionUp");
+});
 
+router.get("/test-api-2", function (req, res) {
+  res.send("hi FunctionUp. This is another cool API");
+});
 
-router.get("/test-api-2" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API")
-})
+router.get("/test-api-3", function (req, res) {
+  res.send(
+    "hi FunctionUp. This is another cool API. And NOw i am bored of creating API's "
+  );
+});
 
+router.get("/test-api-4", function (req, res) {
+  res.send(
+    "hi FunctionUp. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s "
+  );
+});
 
-router.get("/test-api-3" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API. And NOw i am bored of creating API's ")
-})
+router.get("/test-api-5", function (req, res) {
+  res.send(
+    "hi FunctionUp5. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s "
+  );
+});
 
+router.get("/test-api-6", function (req, res) {
+  res.send({ a: 56, b: 45 });
+});
 
-router.get("/test-api-4" , function(req, res) {
-    res.send("hi FunctionUp. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s ")
-})
+router.post("/test-post", function (req, res) {
+  res.send([23, 45, 6]);
+});
 
+router.post("/test-post-2", function (req, res) {
+  res.send({ msg: "hi", status: true });
+});
 
+router.post("/test-post-3", function (req, res) {
+  // let id = req.body.user
+  // let pwd= req.body.password
 
-router.get("/test-api-5" , function(req, res) {
-    res.send("hi FunctionUp5. This is another cool API. And NOw i am bored of creating API's. PLZ STOP CREATING MORE API;s ")
-})
+  // console.log( id , pwd)
 
-router.get("/test-api-6" , function(req, res) {
-    res.send({a:56, b: 45})
-})
+  console.log(req.body);
 
-router.post("/test-post", function(req, res) {
-    res.send([ 23, 45 , 6])
-})
+  res.send({ msg: "hi", status: true });
+});
 
+router.post("/test-post-4", function (req, res) {
+  let arr = [12, "functionup"];
+  let ele = req.body.element;
+  arr.push(ele);
+  res.send({ msg: arr, status: true });
+});
 
-router.post("/test-post-2", function(req, res) {
-    res.send(  { msg: "hi" , status: true }  )
-})
+// route to add a new player
+router.post("/players", (req, res) => {
+  let player = req.body;
 
-router.post("/test-post-3", function(req, res) {
-    // let id = req.body.user
-    // let pwd= req.body.password
+  if (players.filter((s) => s.name === player.name).length == 0) {
+    players.push(player);
 
-    // console.log( id , pwd)
-
-    console.log( req.body )
-
-    res.send(  { msg: "hi" , status: true }  )
-})
-
-
-
-router.post("/test-post-4", function(req, res) {
-    let arr= [ 12, "functionup"]
-    let ele= req.body.element
-    arr.push(ele)
-    res.send(  { msg: arr , status: true }  )
-})
+    res.send({ status: true, data: players });
+  } else res.send({ status: false, data: players });
+});
 
 module.exports = router;
