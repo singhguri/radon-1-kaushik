@@ -95,6 +95,7 @@ router.post("/test-post-4", function (req, res) {
 router.post("/players", (req, res) => {
   let player = req.body;
 
+  // check whether player with same name already exists
   if (players.filter((s) => s.name === player.name).length == 0) {
     players.push(player);
 
