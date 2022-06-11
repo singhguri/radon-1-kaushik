@@ -9,11 +9,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// create middleware for logging new date, Requested IP, and path of request
 const middleWare = (req, res, next) => {
     console.log( new Date().toLocaleDateString(), requestIp.getClientIp(req), req.path);
     next();
 }
 
+// add/register middle ware in express app
 app.use(middleWare);
 
 mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
